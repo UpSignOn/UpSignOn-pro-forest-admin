@@ -33,11 +33,26 @@
     "icon": null,
     "integration": null,
     "isReadOnly": false,
-    "isSearchable": true,
+    "isSearchable": false,
     "isVirtual": true,
     "onlyForRelationships": false,
     "paginationType": "page",
     "fields": [{
+      "field": "date",
+      "type": "Date",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": false,
+      "isPrimaryKey": false,
+      "isReadOnly": true,
+      "isRequired": false,
+      "isSortable": false,
+      "isVirtual": true,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "device_unique_id",
       "type": "String",
       "defaultValue": null,
@@ -53,7 +68,7 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "id",
+      "field": "emails",
       "type": "String",
       "defaultValue": null,
       "enums": null,
@@ -68,7 +83,7 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "userEmails",
+      "field": "id",
       "type": "String",
       "defaultValue": null,
       "enums": null,

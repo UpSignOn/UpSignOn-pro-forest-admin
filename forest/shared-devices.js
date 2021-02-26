@@ -1,7 +1,6 @@
 const { collection } = require("forest-express-sequelize");
 
 collection("sharedDevices", {
-  isSearchable: true,
   fields: [
     {
       field: "device_unique_id",
@@ -12,8 +11,12 @@ collection("sharedDevices", {
       type: "String",
     },
     {
-      field: "userEmails",
+      field: "emails",
       type: "String",
+    },
+    {
+      field: "date",
+      type: "Date",
     },
   ],
 });
