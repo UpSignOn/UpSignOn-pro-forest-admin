@@ -53,6 +53,24 @@ module.exports = (sequelize, DataTypes) => {
       as: "user",
     });
   };
+  UserDevices.beforeBulkCreate(async () => {
+    throw new Error("This is currently not allowed by the UpSignOn team.");
+  });
+  UserDevices.beforeBulkUpdate(async () => {
+    throw new Error("This is currently not allowed by the UpSignOn team.");
+  });
+  UserDevices.beforeCreate(async () => {
+    throw new Error("This is currently not allowed by the UpSignOn team.");
+  });
+  UserDevices.beforeUpdate(async () => {
+    throw new Error("This is currently not allowed by the UpSignOn team.");
+  });
+  UserDevices.beforeSave(async () => {
+    throw new Error("This is currently not allowed by the UpSignOn team.");
+  });
+  UserDevices.beforeUpsert(async () => {
+    throw new Error("This is currently not allowed by the UpSignOn team.");
+  });
 
   return UserDevices;
 };
