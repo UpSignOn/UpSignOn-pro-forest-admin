@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       tableName: "users",
       underscored: true,
+      timestamps: false,
       schema: process.env.DATABASE_SCHEMA,
     }
   );

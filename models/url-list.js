@@ -14,9 +14,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       signinUrl: {
         type: DataTypes.STRING,
+        validate: {
+          isUrl: true,
+        },
       },
       passwordChangeUrl: {
         type: DataTypes.STRING,
+        validate: {
+          isUrl: true,
+        },
       },
     },
     {
