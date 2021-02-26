@@ -146,9 +146,13 @@
       "validations": []
     }, {
       "field": "authorizationStatus",
-      "type": "String",
+      "type": "Enum",
       "defaultValue": null,
-      "enums": null,
+      "enums": [
+        "AUTHORIZED",
+        "PENDING",
+        "REVOKED_BY_USER"
+      ],
       "integration": null,
       "isFilterable": true,
       "isPrimaryKey": false,
@@ -264,7 +268,7 @@
       "inverseOf": null,
       "validations": []
     }, {
-      "field": "dataSizeInBytes",
+      "field": "dataSizeInOctets",
       "type": "Number",
       "defaultValue": null,
       "enums": null,
@@ -328,6 +332,21 @@
       "inverseOf": null,
       "validations": []
     }, {
+      "field": "nbDevices",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": false,
+      "isPrimaryKey": false,
+      "isReadOnly": true,
+      "isRequired": false,
+      "isSortable": false,
+      "isVirtual": true,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "updatedAt",
       "type": "Date",
       "defaultValue": null,
@@ -341,6 +360,22 @@
       "isVirtual": false,
       "reference": null,
       "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "userDevices",
+      "type": ["Number"],
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "userDevices.user_id",
+      "inverseOf": null,
+      "relationship": "HasMany",
       "validations": []
     }],
     "segments": [],

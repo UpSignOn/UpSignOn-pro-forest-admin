@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       authorizationStatus: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(["AUTHORIZED", "PENDING", "REVOKED_BY_USER"]),
       },
       authorizationCode: {
         type: DataTypes.UUID,
@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         name: "userIdKey",
         field: "user_id",
       },
-      targetKey: "email",
+      targetKey: "id",
       as: "user",
     });
   };

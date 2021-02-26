@@ -35,7 +35,12 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships.
-  Users.associate = (models) => {};
+  Users.associate = (models) => {
+    Users.hasMany(models.userDevices, {
+      foreignKey: "user_id",
+      sourceKey: "id",
+    });
+  };
 
   return Users;
 };
