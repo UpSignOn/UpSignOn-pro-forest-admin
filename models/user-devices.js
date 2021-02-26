@@ -62,12 +62,16 @@ module.exports = (sequelize, DataTypes) => {
   UserDevices.beforeCreate(async () => {
     throw new Error("This is currently not allowed by the UpSignOn team.");
   });
-  UserDevices.beforeUpdate(async () => {
-    throw new Error("This is currently not allowed by the UpSignOn team.");
-  });
-  UserDevices.beforeSave(async () => {
-    throw new Error("This is currently not allowed by the UpSignOn team.");
-  });
+
+  const authorizeOnlyDeviceNameEdition = (userDevice) => {
+    const authorizedFields = ["deviceName"];
+    const changedFields = Object.keys(userDevice._changed);
+    changedFields.forEach((f) => {
+      if (!authorizedFields.includes(f)) throw new Error("Only device_name can be edited on a user device.");
+    });
+  };
+  UserDevices.beforeUpdate(authorizeOnlyDeviceNameEdition);
+  UserDevices.beforeSave(authorizeOnlyDeviceNameEdition);
   UserDevices.beforeUpsert(async () => {
     throw new Error("This is currently not allowed by the UpSignOn team.");
   });
