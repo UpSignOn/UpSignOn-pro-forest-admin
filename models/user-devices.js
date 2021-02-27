@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       deviceName: {
         type: DataTypes.STRING,
       },
+      deviceType: {
+        type: DataTypes.STRING,
+      },
+      osVersion: {
+        type: DataTypes.STRING,
+      },
       deviceUniqueId: {
         type: DataTypes.STRING,
       },

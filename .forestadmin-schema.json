@@ -267,6 +267,21 @@
       "inverseOf": null,
       "validations": []
     }, {
+      "field": "deviceType",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "deviceUniqueId",
       "type": "String",
       "defaultValue": null,
@@ -291,6 +306,21 @@
       "isPrimaryKey": true,
       "isReadOnly": false,
       "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "osVersion",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
       "reference": null,
