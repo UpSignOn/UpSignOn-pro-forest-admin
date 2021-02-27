@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       deviceUniqueId: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUIDV4,
       },
       accessCodeHash: {
         type: DataTypes.STRING,
