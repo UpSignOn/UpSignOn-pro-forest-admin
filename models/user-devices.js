@@ -39,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP(0)"),
       },
+      revocationDate: {
+        type: DataTypes.DATE,
+      },
     },
     {
       tableName: "user_devices",
