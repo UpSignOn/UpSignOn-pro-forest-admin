@@ -1,16 +1,15 @@
 const env = {
-  APPLICATION_PORT="3001",
-  APPLICATION_URL="https://forest-admin.mon-espace-pro.fr",
+  FOREST_ENV_SECRET: "secret_given_by_forest",
+  FOREST_AUTH_SECRET: "secret_chosen_by_yourself",
+  DATABASE_URL: "postgres://db-administrator:db-password@localhost:5432/upsignonpro",
+  DOCKER_DATABASE_URL: "postgres://db-administrator:db-password@host.docker.internal:5432/upsignonpro",
+  NODE_ENV: "production",
+  APPLICATION_PORT: "3001",
+  APPLICATION_URL: "https://forest-admin.mon-espace-pro.fr",
 
-  CORS_ORIGINS="",
-
-  DATABASE_URL="postgres://db-administrator:db-password@localhost:5432/upsignonpro",
-  DOCKER_DATABASE_URL="postgres://db-administrator:db-password@host.docker.internal:5432/upsignonpro",
-  DATABASE_SCHEMA="public",
-  DATABASE_SSL=false,
-
-  FOREST_AUTH_SECRET="secret_given_by_forest",
-  FOREST_ENV_SECRET="secret_chosen_by_yourself",
+  DATABASE_SCHEMA: "public",
+  DATABASE_SSL: false,
+  CORS_ORIGINS: "",
 };
 
 module.exports = {
