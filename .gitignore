@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-.env
+.env*
 
 ecosystem.*.config.js
 !ecosystem.example.config.js
