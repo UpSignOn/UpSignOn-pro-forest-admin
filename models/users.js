@@ -41,6 +41,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "user_id",
       sourceKey: "id",
     });
+    Users.hasMany(models.sharedAccountUsers, {
+      foreignKey: "user_id",
+      sourceKey: "id",
+      as: "sharedAccounts",
+    });
   };
 
   Users.beforeBulkCreate(async () => {

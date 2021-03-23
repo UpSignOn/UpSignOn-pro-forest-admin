@@ -28,6 +28,15 @@ collection("users", {
         return models.userDevices.count({ where: { user_id: user.id } });
       },
     },
+    {
+      field: "nbSharedAccounts",
+      type: "Number",
+      description: "Number of shared accounts this user has access to.",
+      isReadOnly: true,
+      get: (user) => {
+        return models.sharedAccountUsers.count({ where: { user_id: user.id } });
+      },
+    },
   ],
   segments: [],
 });
