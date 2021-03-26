@@ -75,8 +75,8 @@ router.post("/actions/grant-password-reset-request", permissionMiddlewareCreator
       .update(
         {
           status: "ADMIN_AUTHORIZED",
-          reset_token: requestToken,
-          reset_token_expiration_date: expirationDate,
+          resetToken: requestToken,
+          resetTokenExpirationDate: expirationDate,
         },
         { where: { id: requestIds } }
       )
@@ -103,7 +103,9 @@ router.post("/actions/grant-password-reset-request", permissionMiddlewareCreator
           },
         };
         const transporter = nodemailer.createTransport(transportOptions);
-        const expirationTime = `${date.getHours()}:${date.getMinutes()}`;
+        const expirationTime = `${date.getHours()}:${date
+          .getMinutes()
+          .toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
         transporter.sendMail({
           from: process.env.EMAIL_USER,
           to: emailAddress,
