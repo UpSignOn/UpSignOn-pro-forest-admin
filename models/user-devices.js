@@ -61,6 +61,11 @@ module.exports = (sequelize, DataTypes) => {
       targetKey: "id",
       as: "user",
     });
+    UserDevices.hasOne(models.passwordResetRequest, {
+      foreignKey: "device_id",
+      sourceKey: "id",
+      as: "passwordResetRequest",
+    });
   };
   UserDevices.beforeBulkCreate(async () => {
     throw new Error("This is currently not allowed by the UpSignOn team.");

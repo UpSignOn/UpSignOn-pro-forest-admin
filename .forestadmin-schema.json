@@ -177,7 +177,20 @@
       "validations": []
     }],
     "segments": [],
-    "actions": []
+    "actions": [{
+      "name": "Accepter la demande de reset de mot de passe",
+      "type": "single",
+      "baseUrl": null,
+      "endpoint": "/forest/actions/grant-password-reset-request",
+      "httpMethod": "POST",
+      "redirect": null,
+      "download": false,
+      "fields": [],
+      "hooks": {
+        "load": false,
+        "change": []
+      }
+    }]
   }, {
     "name": "sharedAccounts",
     "nameOld": "sharedAccounts",
@@ -685,6 +698,22 @@
       "isVirtual": false,
       "reference": null,
       "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "passwordResetRequest",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": "passwordResetRequest.device_id",
+      "inverseOf": null,
+      "relationship": "HasOne",
       "validations": []
     }, {
       "field": "revocationDate",

@@ -10,6 +10,11 @@ const env = {
   DATABASE_SCHEMA: "public",
   DATABASE_SSL: false,
   CORS_ORIGINS: "",
+
+  EMAIL_HOST: "smtp.something.fr",
+  EMAIL_PORT: "587",
+  EMAIL_USER: "no-reply@domain.com",
+  EMAIL_PASS: "email_password",
 };
 
 module.exports = {
