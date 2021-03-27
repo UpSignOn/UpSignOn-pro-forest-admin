@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       osVersion: {
         type: DataTypes.STRING,
       },
+      appVersion: {
+        type: DataTypes.STRING,
+      },
       deviceUniqueId: {
         type: DataTypes.UUIDV4,
       },
