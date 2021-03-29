@@ -27,6 +27,7 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 # Mise à jour du serveur Forest Admin
 
 - `git pull`
+- `npm install`
 - redémarrage du serveur :
   - avec pm2 : `pm2 reload ecosystem.production.config.js --only upsignon-pro-forest-admin-server`
   - sans pm2 : `node ./server.js`
