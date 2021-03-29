@@ -17,7 +17,7 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 
   - modifier le nom du projet
   - modifier l'url de votre serveur d'administration
-  - Configurer vos variables d'environnement nécessaires au lancement du serveur d'administration (dans un fichier .env à la racine du projet (en copiant le contenu de `dot-env-example`) our directement dans le PATH)
+  - Configurer vos variables d'environnement nécessaires au lancement du serveur d'administration (dans un fichier .env à la racine du projet (en copiant le contenu de `dot-env-example`) ou directement dans le PATH)
     > NB: la variable FOREST_ENV_SECRET est fournie par Forest Admin. Vous pouvez la récupérer dans le panneau d'administration du projet Forest Admin, dans l'onglet 'environnements', en choisissant l'environnement "production"
     > NB: la variable FOREST_AUTH_SECRET sert à chiffrer les sessions. Vous pouvez la modifier à votre guise à tout instant en générant une chaine de caractères aléatoire.
   - Démarrer le serveur avec
