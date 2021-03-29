@@ -11,15 +11,18 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 - `npm install --only=prod`
 
 - créez un compte sur Forest Admin: https://www.forestadmin.com/
-- envoyez-nous un email à contact@upsignon.eu contenant l'adresse email de votre compte forest admin pour que nous vous donnions accès à votre interface d'administration (NB : ceci vous évitera de passer du temps à configurer Forest Admin vous même, ce qui est un peu fastidieux et nous permettra de maintenir à jour votre interface en fonction des futures évolutions)
+- si ce n'est pas déjà fait, envoyez un email à giregk@upsignon.eu contenant l'adresse email de votre compte forest admin pour que nous vous donnions accès à votre interface d'administration (NB : ceci vous évitera de passer du temps à configurer Forest Admin vous même, ce qui est un peu fastidieux et nous permettra de maintenir à jour votre interface en fonction des futures évolutions)
 
 - Lorsque vous aurez accès à votre interface, vous pourrez
 
-  - choisir le nom du projet
-  - choisir l'url de votre serveur d'administration
-  - Configurer vos variables d'environnement
+  - modifier le nom du projet
+  - modifier l'url de votre serveur d'administration
+  - Configurer vos variables d'environnement nécessaires au lancement du serveur d'administration
+    > NB: la variable FOREST_ENV_SECRET est fournie par Forest Admin. Vous pouvez la récupérer dans le panneau d'administration du projet Forest Admin, dans l'onglet 'environnements', en choisissant l'environnement "production"
+    > NB: la variable FOREST_AUTH_SECRET sert à chiffrer les sessions. Vous pouvez la modifier à votre guise à tout instant en générant une chaine de caractères aléatoire.
     - si vous utilisez pm2, copiez le fichier ecosystem.example.config.js en y insérant vos propres variables d'environnement telles que spécifiées par Forest Admin
-    - sinon, assurez que ces variables d'environnement sont définies dans le système
+    - sinon vous pouvez créer un fichier .env à la racine du projet en copiant le contenu de `dot-env-example`
+    - vous pouvez également si vous préférez définir ces variables d'environnement dans le PATH
   - Démarrer le serveur avec
     - si vous utilisez pm2 : `pm2 start ecosytem.production.config.js --only upsignon-pro-forest-admin-server`
     - sinon `node ./server.js`
