@@ -4,26 +4,38 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model
-  const UsageLogs = sequelize.define('usageLogs', {
-    deviceId: {
-      type: DataTypes.INTEGER,
+  const UsageLogs = sequelize.define(
+    "usageLogs",
+    {
+      deviceId: {
+        type: DataTypes.INTEGER,
+      },
+      date: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP(0)"),
+      },
+      logType: {
+        type: DataTypes.STRING,
+      },
     },
-    date: {
-      type: DataTypes.DATE,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(0)'),
-    },
-    logType: {
-      type: DataTypes.STRING,
-    },
-  }, {
-    tableName: 'usage_logs',
-    underscored: true,
-    timestamps: false,
-    schema: process.env.DATABASE_SCHEMA,
-  });
+    {
+      tableName: "usage_logs",
+      underscored: true,
+      timestamps: false,
+      schema: process.env.DATABASE_SCHEMA,
+    }
+  );
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships.
   UsageLogs.associate = (models) => {
+    UsageLogs.belongsTo(models.userDevices, {
+      foreignKey: {
+        name: "deviceUniqueIdKey",
+        field: "device_id",
+      },
+      targetKey: "id",
+      as: "device",
+    });
   };
 
   return UsageLogs;

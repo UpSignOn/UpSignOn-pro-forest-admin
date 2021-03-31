@@ -4,38 +4,50 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model
-  const DataStats = sequelize.define('dataStats', {
-    userId: {
-      type: DataTypes.INTEGER,
+  const DataStats = sequelize.define(
+    "dataStats",
+    {
+      userId: {
+        type: DataTypes.INTEGER,
+      },
+      date: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP(0)"),
+      },
+      nbAccounts: {
+        type: DataTypes.INTEGER,
+      },
+      nbCodes: {
+        type: DataTypes.INTEGER,
+      },
+      nbAccountsStrong: {
+        type: DataTypes.INTEGER,
+      },
+      nbAccountsMedium: {
+        type: DataTypes.INTEGER,
+      },
+      nbAccountsWeak: {
+        type: DataTypes.INTEGER,
+      },
     },
-    date: {
-      type: DataTypes.DATE,
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(0)'),
-    },
-    nbAccounts: {
-      type: DataTypes.INTEGER,
-    },
-    nbCodes: {
-      type: DataTypes.INTEGER,
-    },
-    nbAccountsStrong: {
-      type: DataTypes.INTEGER,
-    },
-    nbAccountsMedium: {
-      type: DataTypes.INTEGER,
-    },
-    nbAccountsWeak: {
-      type: DataTypes.INTEGER,
-    },
-  }, {
-    tableName: 'data_stats',
-    underscored: true,
-    timestamps: false,
-    schema: process.env.DATABASE_SCHEMA,
-  });
+    {
+      tableName: "data_stats",
+      underscored: true,
+      timestamps: false,
+      schema: process.env.DATABASE_SCHEMA,
+    }
+  );
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships.
   DataStats.associate = (models) => {
+    DataStats.belongsTo(models.users, {
+      foreignKey: {
+        name: "userIdKey",
+        field: "user_id",
+      },
+      targetKey: "id",
+      as: "user",
+    });
   };
 
   return DataStats;
