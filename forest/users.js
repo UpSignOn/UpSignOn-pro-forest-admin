@@ -37,6 +37,61 @@ collection("users", {
         return models.sharedAccountUsers.count({ where: { user_id: user.id } });
       },
     },
+    {
+      field: "nbAccounts",
+      type: "Number",
+      description: "Number of accounts",
+      isReadOnly: true,
+      get: async (user) => {
+        const query = `SELECT nb_accounts from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT" });
+        return res[0] ? res[0].nb_accounts : 0;
+      },
+    },
+    {
+      field: "nbAccStrong",
+      type: "Number",
+      description: "Number of accounts with a strong password",
+      isReadOnly: true,
+      get: async (user) => {
+        const query = `SELECT nb_accounts_strong from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT" });
+        return res[0] ? res[0].nb_accounts_strong : 0;
+      },
+    },
+    {
+      field: "nbAccMedium",
+      type: "Number",
+      description: "Number of accounts with a medium strength password",
+      isReadOnly: true,
+      get: async (user) => {
+        const query = `SELECT nb_accounts_medium from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT" });
+        return res[0] ? res[0].nb_accounts_medium : 0;
+      },
+    },
+    {
+      field: "nbAccWeak",
+      type: "Number",
+      description: "Number of accounts with a weak password",
+      isReadOnly: true,
+      get: async (user) => {
+        const query = `SELECT nb_accounts_weak from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT" });
+        return res[0] ? res[0].nb_accounts_weak : 0;
+      },
+    },
+    {
+      field: "nbCodes",
+      type: "Number",
+      description: "Number of codes",
+      isReadOnly: true,
+      get: async (user) => {
+        const query = `SELECT nb_codes from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT" });
+        return res[0] ? res[0].nb_codes : 0;
+      },
+    },
   ],
   segments: [],
 });
