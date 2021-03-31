@@ -13,8 +13,9 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 - créez un compte sur Forest Admin: https://www.forestadmin.com/
 - si ce n'est pas déjà fait, envoyez un email à giregk@upsignon.eu contenant l'adresse email de votre compte forest admin pour que nous vous donnions accès à votre interface d'administration (NB : ceci vous évitera de passer du temps à configurer Forest Admin vous même, ce qui est un peu fastidieux et nous permettra de maintenir à jour votre interface en fonction des futures évolutions)
 
-- configurez les variables d'environnements pour le serveur Forest Admin
-  - créez un fichier .env en copiant le contenu de `dot-env-example` à savoir
+# Configuration des variables d'environnements pour le serveur Forest Admin
+
+- créez un fichier .env en copiant le contenu de `dot-env-example` à savoir
 
 ```
 FOREST_ENV_SECRET=secret_provided_by_forest_admin
@@ -34,9 +35,10 @@ EMAIL_USER=no-reply@domain.com
 EMAIL_PASS=some-password
 ```
 
-    (vous pouvez aussi mettre ces valeurs directement dans le PATH si vous le souhaitez)
-    - la valeur de FOREST_ENV_SECRET est fournie par Forest Admin. Vous pouvez y accéder en allant sur https://app.forestadmin.com/<nom_du_projet_forest>/settings/environments/details/Production
-    - la valeur de FOREST_AUTH_SECRET sert à chiffrer les sessions des utilisateurs qui se connectent à l'interface de Forest Admin. Remplacez la par une chaîne de caractères aléatoire de votre choix.
+(vous pouvez aussi mettre ces valeurs directement dans le PATH si vous le souhaitez)
+
+- la valeur de FOREST_ENV_SECRET est fournie par Forest Admin. Vous pouvez y accéder en allant sur https://app.forestadmin.com/<nom_du_projet_forest>/settings/environments/details/Production
+- la valeur de FOREST_AUTH_SECRET sert à chiffrer les sessions des utilisateurs qui se connectent à l'interface de Forest Admin. Remplacez la par une chaîne de caractères aléatoire de votre choix.
 
 - Démarrez le serveur avec
 
