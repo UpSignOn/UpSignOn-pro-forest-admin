@@ -6,12 +6,13 @@ Forest Admin (https://forestadmin.com) est un service français permettant d'adm
 
 Pour installer le serveur d'administration, la procédure est la suivante:
 
-- prérequis: votre machine doit disposer de Node.js, git (et pm2 de façon optionelle). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également.
-- `git clone --branch production https://github.com/UpSignOn/UpSignOn-pro-forest-admin.git <DESTINATION_DIRECTORY>`
-- `npm install --only=prod`
+- prérequis: votre machine doit disposer de Node.js, git (et pm2 de façon optionelle). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
 
 - créez un compte sur Forest Admin: https://www.forestadmin.com/
 - si ce n'est pas déjà fait, envoyez un email à giregk@upsignon.eu contenant l'adresse email de votre compte forest admin pour que nous vous donnions accès à votre interface d'administration (NB : ceci vous évitera de passer du temps à configurer Forest Admin vous même, ce qui est un peu fastidieux et nous permettra de maintenir à jour votre interface en fonction des futures évolutions)
+
+- `git clone --branch production https://github.com/UpSignOn/UpSignOn-pro-forest-admin.git <DESTINATION_DIRECTORY>`
+- `npm install --only=prod`
 
 # Configuration des variables d'environnements pour le serveur Forest Admin
 
@@ -43,16 +44,29 @@ SSL_CERTIFICATE_CRT_PATH=
 - la valeur de FOREST_AUTH_SECRET sert à chiffrer les sessions des utilisateurs qui se connectent à l'interface de Forest Admin. Remplacez la par une chaîne de caractères aléatoire de votre choix.
 - les variables EMAIL configurent une adresse email utilisée dans le cadre des procédures de mot de passe oublié déclenchées par les utilisateurs. Lorsque vous autoriserez un utilisateur à réinitialiser son mot de passe à partir de Forest Admin, l'utilisateur recevra un email provenant de cette adresse.
   - pour EMAIL_PORT, les deux valeurs classiques sont 587 et 465. (Utilisez le port 465 s'il fonctionne pour vous, mais dans la plupart des cas, il ne fonctionnera pas. Dans ce cas utilisez le port 587.)
-- SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès au certificat local permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin. Si l'une de ces deux variables est vide, le serveur ouvre une connexion http au lieu d'une connection https. Ces deux variables sont dont optionnelles.
+- SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès absolus au certificat local (format .pem autorisé) permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin. Si l'une de ces deux variables est vide, le serveur ouvre une connexion http au lieu d'une connection https. Ces deux variables sont dont optionnelles.
 
 - Démarrez le serveur avec
 
   - si vous utilisez pm2 : `pm2 start ecosytem.production.config.js --only upsignon-pro-forest-admin-server`
   - sinon `node ./server.js`
 
+# Génération d'un certificat SSL
+
+Par exemple avec Let's Encrypt
+
+```
+apt install letsencrypt
+letsencrypt certonly --standalone -d admin-upsignon.domaine.fr
+```
+
+N'oubliez pas de configurer les droits de lecture et d'écriture de votre clé privée (lecture et écriture seulement pour root).
+
 # Configuration du reverse proxy
 
 Voici un example de configuration possible avec Nginx
+
+Dans /etc/nginx/sites-enabled/upsignon-admin
 
 ```
 proxy_set_header X-Real-IP $remote_addr;
@@ -96,6 +110,12 @@ NB, contrairement à la configuration proposée pour le serveur UpSignOn Pro, le
 ```
 
 ne doit pas être présent.
+
+Redémarrer Nginx
+
+```
+systemctl restart nginx
+```
 
 # Déclaration de l'url dans la config du projet sur le site de Forest Admin
 
