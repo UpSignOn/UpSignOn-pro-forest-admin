@@ -92,7 +92,6 @@ router.post("/actions/grant-password-reset-request", permissionMiddlewareCreator
       .then((searchResult) => {
         const emailAddress = searchResult[0].dataValues.user.email;
         const deviceName = searchResult[0].dataValues.deviceName;
-        console.log(emailAddress, deviceName);
         const transportOptions = {
           host: process.env.EMAIL_HOST,
           port: process.env.EMAIL_PORT,
@@ -106,7 +105,6 @@ router.post("/actions/grant-password-reset-request", permissionMiddlewareCreator
         const expirationTime = `${date.getHours()}:${date
           .getMinutes()
           .toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
-        console.log("HERE !");
         return transporter.sendMail({
           from: process.env.EMAIL_USER,
           to: emailAddress,
@@ -115,11 +113,10 @@ router.post("/actions/grant-password-reset-request", permissionMiddlewareCreator
         });
       })
       .then(() => {
-        console.log("OK");
         res.send({ success: "Un email a été envoyé à l'utilisateur." });
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
         res.send({ error: "An error occured." });
       });
   });
