@@ -171,5 +171,5 @@ En cas de problème, vérifiez les points suivants:
 - `git pull`
 - `npm install`
 - redémarrage du serveur :
-  - avec pm2 : `pm2 reload ecosystem.production.config.js --only upsignon-pro-forest-admin-server`
+  - avec pm2 : `pm2 reload ecosystem.config.js --only upsignon-pro-forest-admin-server`
   - sans pm2 : `node ./server.js`
