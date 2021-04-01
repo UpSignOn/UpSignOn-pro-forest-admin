@@ -106,7 +106,8 @@ router.post("/actions/grant-password-reset-request", permissionMiddlewareCreator
         const expirationTime = `${date.getHours()}:${date
           .getMinutes()
           .toLocaleString(undefined, { minimumIntegerDigits: 2 })}`;
-        transporter.sendMail({
+        console.log("HERE !");
+        return transporter.sendMail({
           from: process.env.EMAIL_USER,
           to: emailAddress,
           subject: "Réinitialisation de votre mot de passe UpSignOn PRO",
@@ -114,9 +115,11 @@ router.post("/actions/grant-password-reset-request", permissionMiddlewareCreator
         });
       })
       .then(() => {
+        console.log("OK");
         res.send({ success: "Un email a été envoyé à l'utilisateur." });
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         res.send({ error: "An error occured." });
       });
   });
