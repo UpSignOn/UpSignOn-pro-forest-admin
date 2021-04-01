@@ -9,7 +9,14 @@ router.get("/sharedDevices", (req, res, next) => {
   const offset = (parseInt(req.query.page.number) - 1) * limit;
 
   const queryData = `
-    SELECT user_devices.device_unique_id AS device_unique_id, user_devices.device_unique_id AS id, MAX(user_devices.created_at) AS date, STRING_AGG(users.email,' ; ') AS emails FROM user_devices INNER JOIN users ON users.id=user_devices.user_id
+    SELECT
+      user_devices.device_unique_id AS device_unique_id,
+      user_devices.device_unique_id AS id,
+      MAX(user_devices.created_at) AS date,
+      STRING_AGG(users.email,' ; ') AS emails
+    FROM user_devices
+    INNER JOIN users ON users.id=user_devices.user_id
+    WHERE user_devices.authorization_status='AUTHORIZED'
     GROUP BY user_devices.device_unique_id
     HAVING COUNT(*) > 1
     ORDER BY date DESC
