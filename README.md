@@ -33,13 +33,16 @@ EMAIL_HOST=smtp.ionos.fr
 EMAIL_PORT=587
 EMAIL_USER=no-reply@domain.com
 EMAIL_PASS=some-password
-```
 
-(vous pouvez aussi mettre ces valeurs directement dans le PATH si vous le souhaitez)
+SSL_CERTIFICATE_KEY_PATH=
+SSL_CERTIFICATE_CRT_PATH=
+```
 
 - la valeur de FOREST_ENV_SECRET est fournie par Forest Admin. Vous pouvez y accéder en allant sur https://app.forestadmin.com/nomDuProjetForest/settings/environments/details/Production
 - la valeur de FOREST_AUTH_SECRET sert à chiffrer les sessions des utilisateurs qui se connectent à l'interface de Forest Admin. Remplacez la par une chaîne de caractères aléatoire de votre choix.
 - les variables EMAIL configurent une adresse email utilisée dans le cadre des procédures de mot de passe oublié déclenchées par les utilisateurs. Lorsque vous autoriserez un utilisateur à réinitialiser son mot de passe à partir de Forest Admin, l'utilisateur recevra un email provenant de cette adresse.
+  - pour EMAIL_PORT, les deux valeurs classiques sont 587 (non-sécurisé) et 465 (sécurisé)
+- SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès au certificat local permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin
 
 - Démarrez le serveur avec
 

@@ -1,6 +1,8 @@
 require("dotenv").config();
 const debug = require("debug")("{name}:server");
 const http = require("http");
+const https = require("https");
+const fs = require("fs");
 const chalk = require("chalk");
 const app = require("./app");
 
@@ -20,7 +22,16 @@ function normalizePort(val) {
 const port = normalizePort(process.env.APPLICATION_PORT || "3310");
 app.set("port", port);
 
-const server = http.createServer(app);
+let server;
+if (process.env.SSL_CERTIFICATE_KEY_PATH && process.env.SSL_CERTIFICATE_CRT_PATH) {
+  const options = {
+    key: fs.readFileSync(process.env.SSL_CERTIFICATE_KEY_PATH),
+    cert: fs.readFileSync(process.env.SSL_CERTIFICATE_CRT_PATH),
+  };
+  server = https.createServer(options, app);
+} else {
+  server = http.createServer(app);
+}
 server.listen(port);
 
 function onError(error) {
