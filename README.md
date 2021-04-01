@@ -42,7 +42,7 @@ SSL_CERTIFICATE_CRT_PATH=
 - la valeur de FOREST_AUTH_SECRET sert à chiffrer les sessions des utilisateurs qui se connectent à l'interface de Forest Admin. Remplacez la par une chaîne de caractères aléatoire de votre choix.
 - les variables EMAIL configurent une adresse email utilisée dans le cadre des procédures de mot de passe oublié déclenchées par les utilisateurs. Lorsque vous autoriserez un utilisateur à réinitialiser son mot de passe à partir de Forest Admin, l'utilisateur recevra un email provenant de cette adresse.
   - pour EMAIL_PORT, les deux valeurs classiques sont 587 (non-sécurisé) et 465 (sécurisé)
-- SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès au certificat local permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin
+- SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès au certificat local permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin. Si l'une de ces deux variables est vide, le serveur ouvre une connexion http au lieu d'une connection https. Ces deux variables sont dont optionnelles.
 
 - Démarrez le serveur avec
 
