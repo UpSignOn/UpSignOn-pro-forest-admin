@@ -34,6 +34,7 @@ EMAIL_PORT=587
 EMAIL_USER=no-reply@domain.com
 EMAIL_PASS=some-password
 
+# Optional local SSL configuration
 SSL_CERTIFICATE_KEY_PATH=
 SSL_CERTIFICATE_CRT_PATH=
 ```
@@ -77,11 +78,13 @@ server {
   root /home/upsignonpro/UpSignOn-pro-forest-admin/public/;
 
   location / {
-    proxy_pass http://localhost:3011;
+    proxy_pass http://localhost:3310;
   }
 }
 
 ```
+
+Attention, si vous avez choisi de configurer un certificat SSL pour le serveur Forest Admin, remplacez `http://localhost:3310` par `https://localhost:3310`
 
 NB, contrairement à la configuration proposée pour le serveur UpSignOn Pro, le block
 
@@ -111,11 +114,28 @@ En utilisant l'interface Forest Admin, vous pouvez maintenant configurer les adr
 
 En cas de problème, vérifiez les points suivants:
 
-- vérifiez les valeurs de vos variables d'environnement
+- vérifiez les valeurs de vos variables d'environnement. En particulier, vérifiez la valeur de
+
+  - FOREST_ENV_SECRET = valeur fournie par Forest Admin
+  - APPLICATION_URL = identique à la valeur renseignée dans Forest Admin
+  - APPLICATION_PORT = conforme à ce qui est attendu selon votre configuration de reverse proxy (dans les examples, 3310)
+  - SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH = si spécifiées, vérifier que le reverse proxy transfère les requêtes en https. Sinon, vérifier que le reverse proxy transfère les requêtes en http.
+
+- Observez les logs du serveur de forest-admin
+
+  - dans <dossier forest admin>/logs/server-output.log, vérifier que vous voyez bien
+    ```
+    Your application is listening on port 3310.
+    Your admin panel is available here: https://app.forestadmin.com/projects
+    ```
+    et que le port est bien identique à celui spécifié dans vos variables d'environnement
+    Si vous ne voyez pas ces lignes, votre serveur n'a pas démarré. Consultez alors les logs logs/server-error.log.
+  - consultez les logs d'erreur <dossier forest admin>/logs/server-error.log
+
 - en saisissant l'url du serveur Forest Admin dans votre navigateur, vous devriez arriver sur une page disant "Your server is running"
 
-  - si ce n'est pas le cas, vérifiez que vous voyez bien un log dans logs/server-output.log pour cette requête GET. Si c'est le cas, vérifiez que votre base de données est démarrée. Sinon vérifiez votre configuration Nginx.
-  - Si vous voyez la page your server is running et que l'interface forest admin ne fonctionne toujours pas, vérifiez la configuration de votre reverse proxy. En particulier, vérifiez que le block
+  - si ce n'est pas le cas, il y a probablement un problème au niveau de votre configuration Nginx
+  - si vous voyez la page your server is running et que l'interface forest admin ne fonctionne toujours pas, vérifiez la configuration de votre reverse proxy. En particulier, vérifiez que le block
 
   ```
   if ($request_method !~ ^(GET|HEAD|POST)$ )

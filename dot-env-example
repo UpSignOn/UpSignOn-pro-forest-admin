@@ -14,5 +14,6 @@ EMAIL_PORT=587
 EMAIL_USER=no-reply@domain.com
 EMAIL_PASS=some-password
 
+# Optional local SSL configuration
 SSL_CERTIFICATE_KEY_PATH=
 SSL_CERTIFICATE_CRT_PATH=
