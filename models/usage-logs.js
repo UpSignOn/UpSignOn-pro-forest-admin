@@ -42,10 +42,10 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   UsageLogs.beforeBulkCreate(upsignonError);
-  UsageLogs.beforeBulkDestroy(upsignonError);
+  // UsageLogs.beforeBulkDestroy(upsignonError);
   UsageLogs.beforeBulkUpdate(upsignonError);
   UsageLogs.beforeCreate(upsignonError);
-  UsageLogs.beforeDestroy(upsignonError);
+  // UsageLogs.beforeDestroy(upsignonError);
   UsageLogs.beforeUpdate(upsignonError);
   UsageLogs.beforeSave(upsignonError);
   UsageLogs.beforeUpsert(upsignonError);

@@ -10,14 +10,16 @@ module.exports = (sequelize, DataTypes) => {
   const SharedAccountUsers = sequelize.define(
     "sharedAccountUsers",
     {
-      sharedAccountId: {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+      },
+      sharedAccountId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       userId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
         allowNull: false,
       },
       isManager: {

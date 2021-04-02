@@ -53,10 +53,10 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   DataStats.beforeBulkCreate(upsignonError);
-  DataStats.beforeBulkDestroy(upsignonError);
+  // DataStats.beforeBulkDestroy(upsignonError);
   DataStats.beforeBulkUpdate(upsignonError);
   DataStats.beforeCreate(upsignonError);
-  DataStats.beforeDestroy(upsignonError);
+  // DataStats.beforeDestroy(upsignonError);
   DataStats.beforeUpdate(upsignonError);
   DataStats.beforeSave(upsignonError);
   DataStats.beforeUpsert(upsignonError);

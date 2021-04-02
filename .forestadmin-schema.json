@@ -528,6 +528,21 @@
       "inverseOf": null,
       "validations": []
     }, {
+      "field": "id",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": true,
+      "isReadOnly": false,
+      "isRequired": true,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
       "field": "isManager",
       "type": "Boolean",
       "defaultValue": null,

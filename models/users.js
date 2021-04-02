@@ -63,7 +63,9 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Users.beforeBulkCreate(upsignonError);
-  // Users.beforeBulkDestroy(upsignonError);
+  Users.beforeBulkDestroy(() => {
+    throw new Error("You need to delete the user from the user page");
+  });
   Users.beforeBulkUpdate(upsignonError);
   Users.beforeCreate(upsignonError);
   // Users.beforeDestroy(upsignonError);
