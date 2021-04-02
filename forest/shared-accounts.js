@@ -1,4 +1,5 @@
 const { collection } = require("forest-express-sequelize");
+const models = require("../models");
 
 // This file allows you to add to your Forest UI:
 // - Smart actions: https://docs.forestadmin.com/documentation/reference-guide/actions/create-and-manage-smart-actions
@@ -7,6 +8,16 @@ const { collection } = require("forest-express-sequelize");
 // - Smart segments: https://docs.forestadmin.com/documentation/reference-guide/segments/smart-segments
 collection("sharedAccounts", {
   actions: [],
-  fields: [],
+  fields: [
+    {
+      field: "nbUsers",
+      type: "Number",
+      description: "Number of users that have access to this shared account.",
+      isReadOnly: true,
+      get: (sharedAccount) => {
+        return models.sharedAccountUsers.count({ where: { shared_account_id: sharedAccount.id } });
+      },
+    },
+  ],
   segments: [],
 });
