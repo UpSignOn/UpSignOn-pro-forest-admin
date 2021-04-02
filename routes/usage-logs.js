@@ -11,21 +11,18 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator("usageLogs")
 
 // Create a Usage Log
 router.post("/usageLogs", permissionMiddlewareCreator.create(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#create-a-record
   next();
 });
 
 // Update a Usage Log
 router.put("/usageLogs/:recordId", permissionMiddlewareCreator.update(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#update-a-record
   next();
 });
 
 // Delete a Usage Log
 router.delete("/usageLogs/:recordId", permissionMiddlewareCreator.delete(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-record
   next();
 });
@@ -56,7 +53,6 @@ router.get("/usageLogs.csv", permissionMiddlewareCreator.export(), (request, res
 
 // Delete a list of Usage Logs
 router.delete("/usageLogs", permissionMiddlewareCreator.delete(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-list-of-records
   next();
 });

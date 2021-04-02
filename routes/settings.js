@@ -11,21 +11,18 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator("settings");
 
 // Create a Setting
 router.post("/settings", permissionMiddlewareCreator.create(), (request, response, next) => {
-  throw new Error("unauthorized");
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#create-a-record
   next();
 });
 
 // Update a Setting
 router.put("/settings/:recordId", permissionMiddlewareCreator.update(), (request, response, next) => {
-  if (request.body.data.attributes.key) throw new Error("Vous ne pouvez pas modifier le nom du paramètre.");
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#update-a-record
   next();
 });
 
 // Delete a Setting
 router.delete("/settings/:recordId", permissionMiddlewareCreator.delete(), (request, response, next) => {
-  throw new Error("Unauthorized");
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-record
   next();
 });
@@ -56,7 +53,6 @@ router.get("/settings.csv", permissionMiddlewareCreator.export(), (request, resp
 
 // Delete a list of Settings
 router.delete("/settings", permissionMiddlewareCreator.delete(), (request, response, next) => {
-  throw new Error("Unauthorized");
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-list-of-records
   next();
 });

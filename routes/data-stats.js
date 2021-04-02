@@ -11,21 +11,18 @@ const permissionMiddlewareCreator = new PermissionMiddlewareCreator("dataStats")
 
 // Create a Data Stat
 router.post("/dataStats", permissionMiddlewareCreator.create(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#create-a-record
   next();
 });
 
 // Update a Data Stat
 router.put("/dataStats/:recordId", permissionMiddlewareCreator.update(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#update-a-record
   next();
 });
 
 // Delete a Data Stat
 router.delete("/dataStats/:recordId", permissionMiddlewareCreator.delete(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-record
   next();
 });
@@ -56,7 +53,6 @@ router.get("/dataStats.csv", permissionMiddlewareCreator.export(), (request, res
 
 // Delete a list of Data Stats
 router.delete("/dataStats", permissionMiddlewareCreator.delete(), (request, response, next) => {
-  throw new Error();
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-list-of-records
   next();
 });
