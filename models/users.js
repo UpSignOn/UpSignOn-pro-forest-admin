@@ -43,19 +43,30 @@ module.exports = (sequelize, DataTypes) => {
     Users.hasMany(models.userDevices, {
       foreignKey: "user_id",
       sourceKey: "id",
+      onDelete: "CASCADE",
+      hooks: true,
     });
     Users.hasMany(models.sharedAccountUsers, {
       foreignKey: "user_id",
       sourceKey: "id",
       as: "sharedAccounts",
+      onDelete: "CASCADE",
+      hooks: true,
+    });
+    Users.hasMany(models.dataStats, {
+      foreignKey: "user_id",
+      sourceKey: "id",
+      as: "stats",
+      onDelete: "CASCADE",
+      hooks: true,
     });
   };
 
   Users.beforeBulkCreate(upsignonError);
-  Users.beforeBulkDestroy(upsignonError);
+  // Users.beforeBulkDestroy(upsignonError);
   Users.beforeBulkUpdate(upsignonError);
   Users.beforeCreate(upsignonError);
-  Users.beforeDestroy(upsignonError);
+  // Users.beforeDestroy(upsignonError);
   Users.beforeUpdate(upsignonError);
   Users.beforeSave(upsignonError);
   Users.beforeUpsert(upsignonError);

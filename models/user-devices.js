@@ -70,6 +70,15 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "device_id",
       sourceKey: "id",
       as: "passwordResetRequest",
+      onDelete: "CASCADE",
+      hooks: true,
+    });
+    UserDevices.hasMany(models.usageLogs, {
+      foreignKey: "device_id",
+      sourceKey: "id",
+      as: "logs",
+      onDelete: "CASCADE",
+      hooks: true,
     });
   };
 
