@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
   const SharedAccounts = sequelize.define(
     "sharedAccounts",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
       url: {
         type: DataTypes.STRING,
       },
