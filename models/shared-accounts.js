@@ -54,7 +54,9 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   SharedAccounts.beforeBulkCreate(upsignonError);
-  // SharedAccounts.beforeBulkDestroy(upsignonError);
+  SharedAccounts.beforeBulkDestroy(() => {
+    throw new Error("You need to delete the account from the account page");
+  });
   SharedAccounts.beforeBulkUpdate(upsignonError);
   SharedAccounts.beforeCreate(upsignonError);
   // SharedAccounts.beforeDestroy(upsignonError);

@@ -14,7 +14,7 @@ async function upsignonError() {
 
 /** TO COPY PASTE */
 // model.beforeBulkCreate(upsignonError);
-// model.beforeBulkDestroy(upsignonError);
+// model.beforeBulkDestroy(upsignonError); OR model.beforeBulkDestroy(()=>{throw new Error("You need to delete the user from the user page");});
 // model.beforeBulkUpdate(upsignonError);
 // model.beforeCreate(upsignonError);
 // model.beforeDestroy(upsignonError);
