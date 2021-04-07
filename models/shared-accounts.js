@@ -43,14 +43,16 @@ module.exports = (sequelize, DataTypes) => {
         field: "shared_account_id",
       },
       as: "users",
+      onDelete: "CASCADE",
+      hooks: true,
     });
   };
 
   SharedAccounts.beforeBulkCreate(upsignonError);
-  SharedAccounts.beforeBulkDestroy(upsignonError);
+  // SharedAccounts.beforeBulkDestroy(upsignonError);
   SharedAccounts.beforeBulkUpdate(upsignonError);
   SharedAccounts.beforeCreate(upsignonError);
-  SharedAccounts.beforeDestroy(upsignonError);
+  // SharedAccounts.beforeDestroy(upsignonError);
   SharedAccounts.beforeUpdate(upsignonError);
   SharedAccounts.beforeSave(upsignonError);
   SharedAccounts.beforeUpsert(upsignonError);
