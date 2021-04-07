@@ -46,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         name: "sharedAccountIdKey",
         field: "shared_account_id",
       },
+      sourceKey: "id",
       as: "users",
       onDelete: "CASCADE",
       hooks: true,
