@@ -1,0 +1,13 @@
+diff --git a/node_modules/forest-express/dist/routes/authentication.js b/node_modules/forest-express/dist/routes/authentication.js
+index ff7a41a..066ed61 100644
+--- a/node_modules/forest-express/dist/routes/authentication.js
++++ b/node_modules/forest-express/dist/routes/authentication.js
+@@ -20,7 +20,7 @@ var LOGOUT_ROUTE = 'authentication/logout';
+ var PUBLIC_ROUTES = ["/".concat(START_AUTHENTICATION_ROUTE), "/".concat(CALLBACK_AUTHENTICATION_ROUTE), "/".concat(LOGOUT_ROUTE)];
+ 
+ function getCallbackUrl(applicationUrl) {
+-  var url = new URL("/forest/".concat(CALLBACK_AUTHENTICATION_ROUTE), applicationUrl);
++  var url = new URL(applicationUrl+"/forest/".concat(CALLBACK_AUTHENTICATION_ROUTE));
+   return url.toString();
+ }
+ /**
