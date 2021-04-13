@@ -16,7 +16,7 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 
 # Configuration des variables d'environnements pour le serveur Forest Admin
 
-- créez un fichier .env en copiant le contenu de `dot-env-example` (attention, ne pas simplement renommer ce fichier, il faut bien le dupliquer pour pouvoir par la suite faire un pull sans problème) à savoir
+- créez un fichier `.env` (le nom doit être exactement `.env`) en copiant le contenu de `dot-env-example` (attention, ne pas simplement renommer ce fichier, il faut bien le dupliquer pour pouvoir par la suite faire un pull sans problème) à savoir
 
 ```
 FOREST_ENV_SECRET=secret_provided_by_forest_admin
