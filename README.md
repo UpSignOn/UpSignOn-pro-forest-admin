@@ -8,7 +8,7 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 
 - prérequis:
 
-  - votre machine doit disposer de Node.js, git (et pm2 de façon optionelle). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
+  - votre machine doit disposer de Node.js v11 ou ultérieur, git (et pm2 de façon optionelle). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
   - les requêtes sortantes vers https://api.forestadmin.com doivent être autorisées par votre proxy si vous en avez un. (Ces requêtes sont envoyées au démarrage du serveur pour gérer l'authentification).
 
 - créez un compte sur Forest Admin: https://www.forestadmin.com/
