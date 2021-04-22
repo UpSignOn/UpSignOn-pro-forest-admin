@@ -11,3 +11,30 @@ index ff7a41a..066ed61 100644
    return url.toString();
  }
  /**
+diff --git a/node_modules/forest-express/dist/services/forest-server-requester.js b/node_modules/forest-express/dist/services/forest-server-requester.js
+index ff3a818..f88094b 100644
+--- a/node_modules/forest-express/dist/services/forest-server-requester.js
++++ b/node_modules/forest-express/dist/services/forest-server-requester.js
+@@ -3,6 +3,11 @@
+ var P = require('bluebird');
+ 
+ var superagent = require('superagent');
++var superagentProxy = require('superagent-proxy');
++
++if(process.env.HTTPS_PROXY) {
++  superagentProxy(superagent);
++}
+ 
+ var VError = require('verror');
+ 
+@@ -17,6 +22,10 @@ function perform(route, environmentSecret, queryParameters, headers) {
+   return new P(function (resolve, reject) {
+     var request = superagent.get(forestUrl + route);
+ 
++    if(process.env.HTTPS_PROXY){
++      request.proxy(process.env.HTTPS_PROXY);
++    }
++
+     if (environmentSecret) {
+       request.set('forest-secret-key', environmentSecret);
+     }

@@ -35,6 +35,9 @@ EMAIL_PORT=587
 EMAIL_USER=no-reply@domain.com
 EMAIL_PASS=some-password
 
+# Optional proxy configuration
+HTTPS_PROXY=
+
 # Optional local SSL configuration
 SSL_CERTIFICATE_KEY_PATH=
 SSL_CERTIFICATE_CRT_PATH=
@@ -43,7 +46,10 @@ SSL_CERTIFICATE_CRT_PATH=
 - la valeur de FOREST_ENV_SECRET est fournie par Forest Admin. Vous pouvez y accéder en allant sur https://app.forestadmin.com/nomDuProjetForest/settings/environments/details/Production
 - la valeur de FOREST_AUTH_SECRET sert à chiffrer les sessions des utilisateurs qui se connectent à l'interface de Forest Admin. Remplacez la par une chaîne de caractères aléatoire de votre choix.
 - les variables EMAIL configurent une adresse email utilisée dans le cadre des procédures de mot de passe oublié déclenchées par les utilisateurs. Lorsque vous autoriserez un utilisateur à réinitialiser son mot de passe à partir de Forest Admin, l'utilisateur recevra un email provenant de cette adresse.
+
   - pour EMAIL_PORT, les deux valeurs classiques sont 587 et 465. (Utilisez le port 465 s'il fonctionne pour vous, mais dans la plupart des cas, il ne fonctionnera pas. Dans ce cas utilisez le port 587.)
+
+- HTTPS_PROXY : si vous installez ce serveur derrière un proxy, vous devez configurer son url ici. (Le serveur envoie des requêtes d'authentification à https://api.forestadmin.com)
 - SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès absolus au certificat local (format .pem autorisé) permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin. Si l'une de ces deux variables est vide, le serveur ouvre une connexion http au lieu d'une connection https. Ces deux variables sont donc optionnelles.
 
 - Démarrez le serveur avec
