@@ -6,13 +6,16 @@ Forest Admin (https://forestadmin.com) est un service français permettant d'adm
 
 Pour installer le serveur d'administration, la procédure est la suivante:
 
-- prérequis: votre machine doit disposer de Node.js, git (et pm2 de façon optionelle). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
+- prérequis:
+
+  - votre machine doit disposer de Node.js, git (et pm2 de façon optionelle). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
+  - les requêtes sortantes vers https://api.forestadmin.com doivent être autorisées par votre proxy si vous en avez un. (Ces requêtes sont envoyées au démarrage du serveur pour gérer l'authentification).
 
 - créez un compte sur Forest Admin: https://www.forestadmin.com/
 - si ce n'est pas déjà fait, envoyez un email à giregk@upsignon.eu contenant l'adresse email de votre compte forest admin pour que nous vous donnions accès à votre interface d'administration (NB : ceci vous évitera de passer du temps à configurer Forest Admin vous même, ce qui est un peu fastidieux et nous permettra de maintenir à jour votre interface en fonction des futures évolutions)
 
 - `git clone --branch production https://github.com/UpSignOn/UpSignOn-pro-forest-admin.git <DESTINATION_DIRECTORY>`
-- `npm install --only=prod`
+- `npm install`
 
 # Configuration des variables d'environnements pour le serveur Forest Admin
 
