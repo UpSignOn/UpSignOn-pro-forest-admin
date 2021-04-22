@@ -7,8 +7,9 @@ const chalk = require("chalk");
 const app = require("./app");
 
 if (process.env.http_proxy) {
-  var globalTunnel = require("global-tunnel-ng");
-  globalTunnel.initialize();
+  var globalAgent = require("global-agent");
+  globalAgent.bootstrap();
+  global.GLOBAL_AGENT.HTTP_PROXY = process.env.http_proxy;
 }
 
 function normalizePort(val) {

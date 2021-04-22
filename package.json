@@ -17,7 +17,7 @@
     "express": "~4.17.1",
     "express-jwt": "5.3.1",
     "forest-express-sequelize": "^7.0.0",
-    "global-tunnel-ng": "^2.7.1",
+    "global-agent": "^2.2.0",
     "morgan": "1.9.1",
     "nodemailer": "^6.5.0",
     "patch-package": "^6.4.7",
