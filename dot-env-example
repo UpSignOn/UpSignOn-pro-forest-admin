@@ -15,7 +15,7 @@ EMAIL_USER=no-reply@domain.com
 EMAIL_PASS=some-password
 
 # Optional proxy configuration
-HTTPS_PROXY=
+http_proxy=
 
 # Optional local SSL configuration
 SSL_CERTIFICATE_KEY_PATH=

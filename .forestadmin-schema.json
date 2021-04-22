@@ -402,7 +402,7 @@
       "isFilterable": true,
       "isPrimaryKey": true,
       "isReadOnly": false,
-      "isRequired": false,
+      "isRequired": true,
       "isSortable": true,
       "isVirtual": false,
       "reference": null,
@@ -1327,7 +1327,7 @@
     "liana": "forest-express-sequelize",
     "liana_version": "7.0.0",
     "engine": "nodejs",
-    "engine_version": "12.1.0",
+    "engine_version": "14.12.0",
     "orm_version": "5.15.2"
   }
 }

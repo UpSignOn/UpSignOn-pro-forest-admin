@@ -17,6 +17,7 @@
     "express": "~4.17.1",
     "express-jwt": "5.3.1",
     "forest-express-sequelize": "^7.0.0",
+    "global-tunnel-ng": "^2.7.1",
     "morgan": "1.9.1",
     "nodemailer": "^6.5.0",
     "patch-package": "^6.4.7",
@@ -24,7 +25,6 @@
     "postinstall-postinstall": "^2.1.0",
     "require-all": "^3.0.0",
     "sequelize": "~5.15.1",
-    "superagent-proxy": "^2.1.0",
     "uuid": "^8.3.2"
   }
 }

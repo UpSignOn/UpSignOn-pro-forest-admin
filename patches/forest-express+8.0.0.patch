@@ -4,37 +4,10 @@ index ff7a41a..066ed61 100644
 +++ b/node_modules/forest-express/dist/routes/authentication.js
 @@ -20,7 +20,7 @@ var LOGOUT_ROUTE = 'authentication/logout';
  var PUBLIC_ROUTES = ["/".concat(START_AUTHENTICATION_ROUTE), "/".concat(CALLBACK_AUTHENTICATION_ROUTE), "/".concat(LOGOUT_ROUTE)];
- 
+
  function getCallbackUrl(applicationUrl) {
 -  var url = new URL("/forest/".concat(CALLBACK_AUTHENTICATION_ROUTE), applicationUrl);
 +  var url = new URL(applicationUrl+"/forest/".concat(CALLBACK_AUTHENTICATION_ROUTE));
    return url.toString();
  }
  /**
-diff --git a/node_modules/forest-express/dist/services/forest-server-requester.js b/node_modules/forest-express/dist/services/forest-server-requester.js
-index ff3a818..f88094b 100644
---- a/node_modules/forest-express/dist/services/forest-server-requester.js
-+++ b/node_modules/forest-express/dist/services/forest-server-requester.js
-@@ -3,6 +3,11 @@
- var P = require('bluebird');
- 
- var superagent = require('superagent');
-+var superagentProxy = require('superagent-proxy');
-+
-+if(process.env.HTTPS_PROXY) {
-+  superagentProxy(superagent);
-+}
- 
- var VError = require('verror');
- 
-@@ -17,6 +22,10 @@ function perform(route, environmentSecret, queryParameters, headers) {
-   return new P(function (resolve, reject) {
-     var request = superagent.get(forestUrl + route);
- 
-+    if(process.env.HTTPS_PROXY){
-+      request.proxy(process.env.HTTPS_PROXY);
-+    }
-+
-     if (environmentSecret) {
-       request.set('forest-secret-key', environmentSecret);
-     }

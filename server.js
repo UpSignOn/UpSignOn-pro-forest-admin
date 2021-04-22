@@ -6,6 +6,11 @@ const fs = require("fs");
 const chalk = require("chalk");
 const app = require("./app");
 
+if (process.env.http_proxy) {
+  var globalTunnel = require("global-tunnel-ng");
+  globalTunnel.initialize();
+}
+
 function normalizePort(val) {
   const port = parseInt(val, 10);
 
