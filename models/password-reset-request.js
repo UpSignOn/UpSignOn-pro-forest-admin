@@ -46,12 +46,12 @@ module.exports = (sequelize, DataTypes) => {
 
   PasswordResetRequest.beforeBulkCreate(upsignonError);
   // PasswordResetRequest.beforeBulkDestroy(upsignonError);
-  PasswordResetRequest.beforeBulkUpdate(upsignonError);
+  // PasswordResetRequest.beforeBulkUpdate(upsignonError);
   PasswordResetRequest.beforeCreate(upsignonError);
   // PasswordResetRequest.beforeDestroy(upsignonError);
-  PasswordResetRequest.beforeUpdate(upsignonError);
-  PasswordResetRequest.beforeSave(upsignonError);
-  PasswordResetRequest.beforeUpsert(upsignonError);
+  // PasswordResetRequest.beforeUpdate(upsignonError);
+  // PasswordResetRequest.beforeSave(upsignonError);
+  // PasswordResetRequest.beforeUpsert(upsignonError);
 
   return PasswordResetRequest;
 };

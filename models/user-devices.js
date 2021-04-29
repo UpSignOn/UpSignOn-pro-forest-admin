@@ -90,10 +90,8 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
   UserDevices.beforeBulkCreate(upsignonError);
-  UserDevices.beforeBulkDestroy(() => {
-    throw new Error("You need to delete the device from the device page");
-  });
-  UserDevices.beforeBulkUpdate(upsignonError);
+  // UserDevices.beforeBulkDestroy(upsignonError);
+  // UserDevices.beforeBulkUpdate(upsignonError);
   UserDevices.beforeCreate(upsignonError);
   // UserDevices.beforeDestroy(upsignonError);
   UserDevices.beforeUpdate(authorizeOnlyDeviceNameEdition);

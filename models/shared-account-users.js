@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   SharedAccountUsers.beforeBulkCreate(upsignonError);
   // SharedAccountUsers.beforeBulkDestroy(upsignonError);
-  SharedAccountUsers.beforeBulkUpdate(authorizeOnlyManagerEdition);
+  // SharedAccountUsers.beforeBulkUpdate(upsignonError);
   SharedAccountUsers.beforeCreate(upsignonError);
   // SharedAccountUsers.beforeDestroy(upsignonError);
   SharedAccountUsers.beforeUpdate(authorizeOnlyManagerEdition);

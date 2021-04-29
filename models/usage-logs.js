@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
 
   UsageLogs.beforeBulkCreate(upsignonError);
   // UsageLogs.beforeBulkDestroy(upsignonError);
-  UsageLogs.beforeBulkUpdate(upsignonError);
+  // UsageLogs.beforeBulkUpdate(upsignonError);
   UsageLogs.beforeCreate(upsignonError);
   // UsageLogs.beforeDestroy(upsignonError);
   UsageLogs.beforeUpdate(upsignonError);
