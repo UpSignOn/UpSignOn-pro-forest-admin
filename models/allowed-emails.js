@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       pattern: {
         type: DataTypes.STRING,
-        primaryKey: true,
       },
     },
     {
@@ -18,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       schema: process.env.DATABASE_SCHEMA,
     }
   );
-  AllowedEmails.removeAttribute("id");
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships.
   AllowedEmails.associate = (models) => {};
 

@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       displayedName: {
         type: DataTypes.STRING,
         allowNull: false,
-        primaryKey: true,
       },
       signinUrl: {
         type: DataTypes.STRING,
@@ -32,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       schema: process.env.DATABASE_SCHEMA,
     }
   );
-  UrlList.removeAttribute("id");
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships.
   UrlList.associate = (models) => {};
 

@@ -10,15 +10,30 @@
     "onlyForRelationships": false,
     "paginationType": "page",
     "fields": [{
-      "field": "pattern",
-      "type": "String",
+      "field": "id",
+      "type": "Number",
       "defaultValue": null,
       "enums": null,
       "integration": null,
       "isFilterable": true,
       "isPrimaryKey": true,
       "isReadOnly": false,
-      "isRequired": true,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
+    }, {
+      "field": "pattern",
+      "type": "String",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": false,
+      "isReadOnly": false,
+      "isRequired": false,
       "isSortable": true,
       "isVirtual": false,
       "reference": null,
@@ -697,7 +712,7 @@
       "enums": null,
       "integration": null,
       "isFilterable": true,
-      "isPrimaryKey": true,
+      "isPrimaryKey": false,
       "isReadOnly": false,
       "isRequired": true,
       "isSortable": true,
@@ -709,6 +724,21 @@
         "type": "is present",
         "value": null
       }]
+    }, {
+      "field": "id",
+      "type": "Number",
+      "defaultValue": null,
+      "enums": null,
+      "integration": null,
+      "isFilterable": true,
+      "isPrimaryKey": true,
+      "isReadOnly": false,
+      "isRequired": false,
+      "isSortable": true,
+      "isVirtual": false,
+      "reference": null,
+      "inverseOf": null,
+      "validations": []
     }, {
       "field": "passwordChangeUrl",
       "type": "String",
@@ -1327,7 +1357,7 @@
     "liana": "forest-express-sequelize",
     "liana_version": "7.7.0",
     "engine": "nodejs",
-    "engine_version": "14.12.0",
+    "engine_version": "12.1.0",
     "orm_version": "5.22.4"
   }
 }
