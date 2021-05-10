@@ -198,8 +198,8 @@ Attention, si vous avez choisi de configurer un certificat SSL pour le serveur F
 
 Vous pouvez configurer le serveur Forest Admin sur le même sous-domaine que le serveur UpSignOn PRO en lui ajoutant un chemin. Par exemple, vous pourriez choisir les url suivantes
 
-- serveur UpSignOn PRO : 'https://upsignon.domaine.fr'
-- serveur Forest Admin : 'https://upsignon.domaine.fr/forest-admin' (pour éviter les conflits de chemin avec le serveur UpSignOn PRO, nous vous conseillons dans cette configuration de n'utiliser que le chemin forest-admin)
+- serveur UpSignOn PRO : 'https://upsignon.domaine.fr/server'
+- serveur Forest Admin : 'https://upsignon.domaine.fr/admin'
 
 Remplacez le fichier `/etc/nginx/sites-enabled/upsignonpro` par
 
@@ -230,11 +230,11 @@ server {
   server_name upsignon.my-domain.fr;
   proxy_ssl_verify off;
 
-  location / {
+  location /server/ {
     # TODO (choix entre http et https & choix du port)
-    proxy_pass http://localhost:3000;
+    proxy_pass http://localhost:3000/;
   }
-  location /forest-admin/ {
+  location /admin/ {
     # TODO (choix entre http et https & choix du port)
     proxy_pass http://localhost:3310/;
   }
@@ -242,6 +242,7 @@ server {
 
 ```
 
+- Attention, tous les "/" finaux sont importants !
 - Attention, si vous avez choisi de configurer un certificat SSL pour le serveur Forest Admin, remplacez `http://localhost:3310` par `https://localhost:3310`
 - Pensez aussi dans ce cas à ce que la variable d'environnement APPLICATION_URL contienne bien le chemin (sans '/' final).
 
