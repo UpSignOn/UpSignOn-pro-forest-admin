@@ -16,7 +16,7 @@ collection("users", {
       isReadOnly: true,
       isRequired: true,
       get: (user) => {
-        return user.encryptedData.length;
+        return user.encryptedData?.length;
       },
     },
     {
