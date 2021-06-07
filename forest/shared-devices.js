@@ -15,6 +15,10 @@ collection("sharedDevices", {
       type: "String",
     },
     {
+      field: "device_names",
+      type: "String",
+    },
+    {
       field: "date",
       type: "Date",
     },

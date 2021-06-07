@@ -14,6 +14,7 @@ router.get("/sharedDevices", (req, res, next) => {
       user_devices.device_unique_id AS id,
       MAX(user_devices.created_at) AS date,
       STRING_AGG(users.email,' ; ') AS emails
+      STRING_AGG(user_devices.device_name) AS device_names
     FROM user_devices
     INNER JOIN users ON users.id=user_devices.user_id
     WHERE user_devices.authorization_status='AUTHORIZED'
@@ -26,6 +27,7 @@ router.get("/sharedDevices", (req, res, next) => {
 
   const queryCount = `
     SELECT COUNT(DISTINCT user_devices.device_unique_id) FROM user_devices INNER JOIN users ON users.id=user_devices.user_id
+    WHERE user_devices.authorization_status='AUTHORIZED'
     GROUP BY user_devices.device_unique_id
     HAVING COUNT(*) > 1
   `;
