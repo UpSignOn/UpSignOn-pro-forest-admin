@@ -8,14 +8,15 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 
 - prérequis:
 
-  - votre machine doit disposer de Node.js v11 ou ultérieur, git (et pm2 de façon optionelle). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
+  - votre machine doit disposer de Node.js v11 ou ultérieur, git et pm2 (ou autre gestionnaire de services). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
+  - votre machine doit disposer de yarn `npm install --global yarn`
   - les requêtes sortantes vers https://api.forestadmin.com doivent être autorisées par votre proxy si vous en avez un. (Ces requêtes sont envoyées au démarrage du serveur pour gérer l'authentification).
 
 - créez un compte sur Forest Admin: https://www.forestadmin.com/
 - si ce n'est pas déjà fait, envoyez un email à giregk@upsignon.eu contenant l'adresse email de votre compte forest admin pour que nous vous donnions accès à votre interface d'administration (NB : ceci vous évitera de passer du temps à configurer Forest Admin vous même, ce qui est un peu fastidieux et nous permettra de maintenir à jour votre interface en fonction des futures évolutions)
 
 - `git clone --branch production https://github.com/UpSignOn/UpSignOn-pro-forest-admin.git <DESTINATION_DIRECTORY>`
-- `npm install`
+- `yarn install`
 
 # Configuration des variables d'environnements pour le serveur Forest Admin
 
@@ -55,10 +56,8 @@ SSL_CERTIFICATE_CRT_PATH=
 - http_proxy : si vous installez ce serveur derrière un proxy, vous devez configurer son url ici. (Le serveur envoie des requêtes d'authentification à https://api.forestadmin.com)
 - SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès absolus au certificat local (format .pem autorisé) permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin. Si l'une de ces deux variables est vide, le serveur ouvre une connexion http au lieu d'une connection https. Ces deux variables sont donc optionnelles.
 
-- Démarrez le serveur avec
-
-  - si vous utilisez pm2 : `pm2 start ecosystem.config.js --only upsignon-pro-forest-admin-server`
-  - sinon `node ./server.js`
+- Démarrez le serveur avec `pm2 start ecosystem.config.js --only upsignon-pro-forest-admin-server`
+  - NB, à des fins de test, vous pouvez également utiliser `yarn start`, ce qui démarrera le processus sans libérer l'invite de commande.
 
 # Configuration du reverse proxy
 
@@ -308,7 +307,9 @@ En cas de problème, vérifiez les points suivants:
 # Mise à jour du serveur Forest Admin
 
 - `git pull`
-- `npm install`
-- redémarrage du serveur :
-  - avec pm2 : `pm2 reload ecosystem.config.js --only upsignon-pro-forest-admin-server`
-  - sans pm2 : `node ./server.js`
+- `yarn install`
+- redémarrage du serveur : `pm2 reload ecosystem.config.js --only upsignon-pro-forest-admin-server`
+
+# NB : en cas de modification de vos variables d'environnement
+
+- pour que pm2 tienne compte de vos nouvelles variables d'environnement, utilisez `pm2 del upsignon-pro-forest-admin-server && pm2 start ecosystem.config.js`
