@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./server.js",
+    "start": "pm2 startOrReload ecosystem.config.js --only upsignon-pro-forest-admin-server",
+    "restart": "pm2 del upsignon-pro-forest-admin-server && pm2 startOrReload ecosystem.config.js --only upsignon-pro-forest-admin-server",
     "update-model": "lumber update"
   },
   "dependencies": {

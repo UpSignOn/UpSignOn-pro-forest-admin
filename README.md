@@ -10,6 +10,7 @@ Pour installer le serveur d'administration, la procédure est la suivante:
 
   - votre machine doit disposer de Node.js v11 ou ultérieur, git et pm2 (ou autre gestionnaire de services). Si vous choisissez d'installer le serveur de Forest Admin sur une machine différente du serveur UpSignOn Pro, veillez donc à les installer également (cf documentation d'installation du serveur UpSignOn PRO pour plus de détails).
   - votre machine doit disposer de yarn `npm install --global yarn`
+  - votre machine doit disposer de pm2 `npm install --global pm2`
   - les requêtes sortantes vers https://api.forestadmin.com doivent être autorisées par votre proxy si vous en avez un. (Ces requêtes sont envoyées au démarrage du serveur pour gérer l'authentification).
 
 - créez un compte sur Forest Admin: https://www.forestadmin.com/
@@ -57,7 +58,7 @@ SSL_CERTIFICATE_CRT_PATH=
 - SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès absolus au certificat local (format .pem autorisé) permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin. Si l'une de ces deux variables est vide, le serveur ouvre une connexion http au lieu d'une connection https. Ces deux variables sont donc optionnelles.
 
 - Démarrez le serveur avec `pm2 start ecosystem.config.js --only upsignon-pro-forest-admin-server`
-  - NB, à des fins de test, vous pouvez également utiliser `yarn start`, ce qui démarrera le processus sans libérer l'invite de commande.
+  - NB, à des fins de test, vous pouvez également utiliser `node ./server.js`, ce qui démarrera le processus sans libérer l'invite de commande.
 
 # Configuration du reverse proxy
 
@@ -308,8 +309,4 @@ En cas de problème, vérifiez les points suivants:
 
 - `git pull`
 - `yarn install`
-- redémarrage du serveur : `pm2 reload ecosystem.config.js --only upsignon-pro-forest-admin-server`
-
-# NB : en cas de modification de vos variables d'environnement
-
-- pour que pm2 tienne compte de vos nouvelles variables d'environnement, utilisez `pm2 del upsignon-pro-forest-admin-server && pm2 start ecosystem.config.js`
+- redémarrage du serveur : `yarn restart`
