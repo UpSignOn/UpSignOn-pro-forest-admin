@@ -38,12 +38,12 @@ De retour dans votre VM, dans le dossier upsignon-pro-forest-admin
 
 ```
 FOREST_ENV_SECRET=secret_provided_by_forest_admin
-FOREST_AUTH_SECRET=2ab25b921c4bf35bb43b1f5b7aaa04e27a3142ada836fcd2323ea148ad953145fd1cac1b1a2250fd33d13499345c
+FOREST_AUTH_SECRET=random
 
 NODE_ENV=production
 
 APPLICATION_PORT=3310
-APPLICATION_URL=https://admin-upsignon.domaine.fr
+APPLICATION_URL=https://upsignonpro.votre-domaine.fr/forest-admin
 
 DATABASE_URL=postgres://<dbUser>:<dbPwd>@localhost:5432/<dbName>
 DOCKER_DATABASE_URL=postgres://<dbUser>:<dbPwd>@host.docker.internal:5432/<dbName>
@@ -63,14 +63,22 @@ SSL_CERTIFICATE_CRT_PATH=
 
 - la valeur de FOREST_ENV_SECRET est fournie par Forest Admin. Vous pouvez y accéder en allant sur [https://app.forestadmin.com/<NOM_DU_PROJET>/settings/environments/details/Production](https://app.forestadmin.com/<NOM_DU_PROJET>/settings/environments/details/Production)
 - la valeur de FOREST_AUTH_SECRET sert à chiffrer les sessions des utilisateurs qui se connectent à l'interface de Forest Admin. Remplacez la par une chaîne de caractères aléatoire de votre choix.
+- la valeur de APPLICATION_URL doit être l'URL exacte sur laquelle ce serveur sera accessible, chemins compris. Cette valeur devra également être dupliquée dans la page de paramètre du projet Forest Admin sur laquelle vous avez trouvé le FOREST_ENV_SECRET
 - les variables EMAIL configurent une adresse email utilisée dans le cadre des procédures de mot de passe oublié déclenchées par les utilisateurs. Lorsque vous autoriserez un utilisateur à réinitialiser son mot de passe à partir de Forest Admin, l'utilisateur recevra un email provenant de cette adresse.
 
   - pour EMAIL_PORT, les deux valeurs classiques sont 587 et 465. (Utilisez le port 465 s'il fonctionne pour vous, mais dans la plupart des cas, il ne fonctionnera pas. Dans ce cas utilisez le port 587.)
 
 - http_proxy : si vous installez ce serveur derrière un proxy, vous devez configurer son url ici. (Le serveur envoie des requêtes d'authentification à https://api.forestadmin.com)
-- (OPTIONNEL) SSL_CERTIFICATE_KEY_PATH et SSL_CERTIFICATE_CRT_PATH configurent les chemins d'accès absolus au certificat local (format .pem autorisé) permettant de chiffrer les communications entre le reverse proxy et le serveur local de Forest Admin. Si l'une de ces deux variables est vide, le serveur ouvre une connexion http au lieu d'une connection https. Ces deux variables sont donc optionnelles. Cette option est proposée uniquement pour les cas où vous souhaiteriez exposer directement le processus nodeJS en https. Dans le cas de l'utilisation d'un reverse proxy, la sécurité sera portée directement par le reverse proxy.
 
-- Démarrez le serveur avec `pm2 start ./ecosystem.config.js --only upsignon-pro-forest-admin-server`
+- (OPTIONNEL) vous pouvez installer un certificat SSL pour que le serveur utilise HTTPS pour les connexions locales. Cette option est proposée uniquement pour les cas où vous souhaiteriez exposer directement le processus nodeJS en https. Dans le cas de l'utilisation d'un reverse proxy, la sécurité sera portée directement par le reverse proxy. Les chemins d'accès à ce certificat seront stockés dans les variables d'environnement suivantes:
+
+  - SSL_CERTIFICATE_KEY_PATH: chemin absolu vers le fichier .key (ou .pem) utilisé pour la communication SSL locale
+  - SSL_CERTIFICATE_CRT_PATH: chemin absolu vers le fichier .crt (ou .pem) utilisé pour la communication SSL locale
+
+  - NB : l'utilisateur linux propriétaire du serveur doit pouvoir accéder à ces fichiers en lecture. N'oubliez pas de configurer les droits d'accès à ces fichiers correctement.
+  - si ces deux variables d'environnement ne sont pas définies, le serveur local fonctionnera en http.
+
+- Démarrez le serveur avec `yarn start`
   - NB, à des fins de test, vous pouvez également utiliser `node ./server.js`, ce qui démarrera le processus sans libérer l'invite de commande.
 
 # Configuration du reverse proxy
@@ -78,12 +86,7 @@ SSL_CERTIFICATE_CRT_PATH=
 Voici des examples de configurations possibles avec Nginx
 
 <details>
-<summary>Configuration lorsque les deux serveurs sont sur la même machine et sur un seul sous-domaine</summary>
-
-Vous pouvez configurer le serveur Forest Admin sur le même sous-domaine que le serveur UpSignOn PRO en lui ajoutant un chemin. Par exemple, vous pourriez choisir les url suivantes
-
-- serveur UpSignOn PRO : 'https://upsignon.domaine.fr/server'
-- serveur Forest Admin : 'https://upsignon.domaine.fr/admin'
+<summary>(CAS STANDARD) Configuration lorsque les deux serveurs sont sur la même machine et sur un seul sous-domaine</summary>
 
 Remplacez le fichier `/etc/nginx/sites-enabled/upsignonpro` par
 
@@ -105,21 +108,20 @@ add_header X-Permitted-Cross-Domain-Policies "none";
 ssl_certificate /etc/certificate/myDomainCertificateSignedByTrustedAuthority.cer;
 # TODO
 ssl_certificate_key /etc/certificate/myDomainCertificatePrivateKey.key;
+
 ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA HIGH !RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS";
 
 server {
   listen 443 ssl http2;
   listen [::]:443 ssl http2;
   # TODO
-  server_name upsignon.my-domain.fr;
+  server_name upsignonpro.votre-domaine.fr;
   proxy_ssl_verify off;
 
   location /server/ {
-    # TODO (choix entre http et https & choix du port)
     proxy_pass http://localhost:3000/;
   }
   location /admin/ {
-    # TODO (choix entre http et https & choix du port)
     proxy_pass http://localhost:3310/;
   }
 }
@@ -157,102 +159,18 @@ add_header X-Permitted-Cross-Domain-Policies "none";
 ssl_certificate /etc/certificate/myDomainCertificateSignedByTrustedAuthority.cer;
 # TODO
 ssl_certificate_key /etc/certificate/myDomainCertificatePrivateKey.key;
-ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA HIGH !RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS";
-
-server {
-  listen 443 ssl http2;
-  listen [::]:443 ssl http2;
-  # TODO
-  server_name admin-upsignon.my-domain.fr;
-  proxy_ssl_verify off;
-
-  location / {
-    # TODO (choix entre http et https & choix du port)
-    proxy_pass http://localhost:3310;
-  }
-}
-
-```
-
-Attention, si vous avez choisi de configurer un certificat SSL pour le serveur Forest Admin, remplacez `http://localhost:3310` par `https://localhost:3310`
-
-NB, contrairement à la configuration proposée pour le serveur UpSignOn Pro, le block
-
-```
-  if ($request_method !~ ^(GET|HEAD|POST)$ )
-  {
-    return 405;
-  }
-```
-
-ne doit pas être présent.
-
-</details>
-
-<details>
-<summary>Configuration lorsque les deux serveurs sont sur la même machine mais sur des sous-domaines différents</summary>
-
-Utilisez cette configuration si vous avez installé votre serveur forest-admin sur la même machine que le serveur UpSignOn PRO.
-
-Si vos deux sous-domaines utilisent des certificats différents (au lieu d'un unique certificat wildcard), déclarez chaque ssl_certificate et ssl_certificate_key à l'intérieur du bloc server correspondant.
-
-Remplacez le fichier `/etc/nginx/sites-enabled/upsignonpro` par
-
-Pensez à bien modifier les valeurs sous les `# TODO`
-
-```
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-server_tokens off;
-
-add_header X-Frame-Options "DENY";
-add_header X-XSS-Protection "1; mode=block";
-add_header X-DNS-Prefetch-Control "off";
-add_header X-Download-Options "noopen";
-add_header X-Content-Type-Options "nosniff";
-add_header X-Permitted-Cross-Domain-Policies "none";
 
 ssl_ciphers "EECDH+ECDSA+AESGCM EECDH+aRSA+AESGCM EECDH+ECDSA+SHA384 EECDH+ECDSA+SHA256 EECDH+aRSA+SHA384 EECDH+aRSA+SHA256 EECDH+aRSA+RC4 EECDH EDH+aRSA HIGH !RC4 !aNULL !eNULL !LOW !3DES !MD5 !EXP !PSK !SRP !DSS";
 
 server {
   listen 443 ssl http2;
   listen [::]:443 ssl http2;
-
   # TODO
-  ssl_certificate /etc/certificate/myDomainCertificateSignedByTrustedAuthority.cer;
-  # TODO
-  ssl_certificate_key /etc/certificate/myDomainCertificatePrivateKey.key;
-
-  # TODO
-  server_name upsignon.my-domain.fr;
+  server_name upsignonpro.votre-domaine.fr;
   proxy_ssl_verify off;
 
-  location / {
-    # TODO (choix entre http et https & choix du port)
-    proxy_pass http://localhost:3000;
-  }
-  if ($request_method !~ ^(GET|HEAD|POST)$ )
-  {
-    return 405;
-  }
-}
-
-server {
-  listen 443 ssl http2;
-  listen [::]:443 ssl http2;
-
-  # TODO
-  ssl_certificate /etc/certificate/myAdminDomainCertificateSignedByTrustedAuthority.cer;
-  # TODO
-  ssl_certificate_key /etc/certificate/myAdminDomainCertificatePrivateKey.key;
-
-  # TODO
-  server_name admin-upsignon.my-domain.fr;
-  proxy_ssl_verify off;
-
-  location / {
-    # TODO (choix entre http et https & choix du port)
-    proxy_pass http://localhost:3310;
+  location /admin/ {
+    proxy_pass http://localhost:3310/;
   }
 }
 
@@ -262,7 +180,7 @@ Attention, si vous avez choisi de configurer un certificat SSL pour le serveur F
 
 </details>
 
-- Redémarrer Nginx
+Redémarrer Nginx
 
 ```
 systemctl restart nginx
@@ -273,11 +191,6 @@ systemctl restart nginx
 - sur [https://app.forestadmin.com/<NOM_DU_PROJET>/settings/environments/details/Production](https://app.forestadmin.com/<NOM_DU_PROJET>/settings/environments/details/Production), la valeur du champ "Admin backend URL" doit être égale à l'url sur laquelle est servie votre serveur forest admin, elle-même égale à la valeur de la variable d'environnement APPLICATION_URL.
 
 Votre interface d'administration devrait maintenant être accessible sur le site de Forest Admin.
-
-A partir des paramètres du projet Forest Admin, vous pouvez si vous le souhaitez
-
-- modifier le nom du projet
-- modifier l'url de votre serveur d'administration (attention à la modifier aussi dans les variables d'environnement du serveur Forest Admin dans ce cas)
 
 En utilisant l'interface Forest Admin, vous pouvez maintenant configurer les adresses emails autorisées et les urls des sites utiles à vos collaborateurs.
 
@@ -306,16 +219,6 @@ En cas de problème, vérifiez les points suivants:
 - en saisissant l'url du serveur Forest Admin dans votre navigateur, vous devriez arriver sur une page disant "Your server is running"
 
   - si ce n'est pas le cas, il y a probablement un problème au niveau de votre configuration Nginx
-  - si vous voyez la page your server is running et que l'interface forest admin ne fonctionne toujours pas, vérifiez la configuration de votre reverse proxy. En particulier, vérifiez que le block
-
-  ```
-  if ($request_method !~ ^(GET|HEAD|POST)$ )
-  {
-    return 405;
-  }
-  ```
-
-  n'est pas présent dans votre config Nginx pour le serveur Forest Admin. (Cas où vous auriez copié-collé la configuration proposée pour le serveur UpSignOn pro)
 
 # Mise à jour du serveur Forest Admin
 
