@@ -13,15 +13,26 @@ Pour installer le serveur d'administration, la procédure est la suivante:
   - votre machine doit disposer de pm2 `npm install --global pm2`
   - les requêtes sortantes vers https://api.forestadmin.com doivent être autorisées par votre proxy si vous en avez un. (Ces requêtes sont envoyées au démarrage du serveur pour gérer l'authentification).
 
-- créez un compte sur Forest Admin: https://www.forestadmin.com/
+- `su - upsignonpro`
+- `cd ~`
+- `git clone --branch production https://github.com/UpSignOn/UpSignOn-pro-forest-admin.git upsignon-pro-forest-admin`
+- `yarn install`
+
+# Configuration du compte Forest Admin
+
 - si ce n'est pas déjà fait, envoyez un email à giregk@upsignon.eu contenant l'adresse email de votre compte forest admin pour que nous vous donnions accès à votre interface d'administration (NB : ceci vous évitera de passer du temps à configurer Forest Admin vous même, ce qui est un peu fastidieux et nous permettra de maintenir à jour votre interface en fonction des futures évolutions)
 
-- `git clone --branch production https://github.com/UpSignOn/UpSignOn-pro-forest-admin.git <DESTINATION_DIRECTORY>`
-- `yarn install`
+  - nous vous ajouterons au projet Forest Admin que nous aurons préalablement préparé
+  - vous recevrez une invitation par mail pour créer votre compte Forest Admin et accéder au projet
+
+    > NB : à ce stade, l'ouverture du projet vous fait arriver sur une erreur "Unable to authenticate you". C'est normal car votre serveur n'est pas encore prêt.
 
 # Configuration des variables d'environnements pour le serveur Forest Admin
 
-- créez un fichier `.env` (le nom doit être exactement `.env`) en copiant le contenu de `dot-env-example` (attention, ne pas simplement renommer ce fichier, il faut bien le dupliquer pour pouvoir par la suite faire un pull sans problème) à savoir
+De retour dans votre VM, dans le dossier upsignon-pro-forest-admin
+
+- `cp dot-env-example .env`
+- éditez le fichier .env
 
 ```
 FOREST_ENV_SECRET=secret_provided_by_forest_admin
