@@ -43,7 +43,7 @@ FOREST_AUTH_SECRET=random
 NODE_ENV=production
 
 APPLICATION_PORT=3310
-APPLICATION_URL=https://upsignonpro.votre-domaine.fr/forest-admin
+APPLICATION_URL=https://upsignonpro.votre-domaine.fr/admin
 
 DATABASE_URL=postgres://<dbUser>:<dbPwd>@localhost:5432/<dbName>
 DOCKER_DATABASE_URL=postgres://<dbUser>:<dbPwd>@host.docker.internal:5432/<dbName>
@@ -85,8 +85,9 @@ SSL_CERTIFICATE_CRT_PATH=
 
 Voici des examples de configurations possibles avec Nginx
 
-<details>
-<summary>(CAS STANDARD) Configuration lorsque les deux serveurs sont sur la même machine et sur un seul sous-domaine</summary>
+## Fichier de configuration NGINX (Cas standard)
+
+(CAS STANDARD) Configuration lorsque les deux serveurs sont sur la même machine et sur un seul sous-domaine.
 
 Remplacez le fichier `/etc/nginx/sites-enabled/upsignonpro` par
 
@@ -118,7 +119,7 @@ server {
   server_name upsignonpro.votre-domaine.fr;
   proxy_ssl_verify off;
 
-  location /server/ {
+  location / {
     proxy_pass http://localhost:3000/;
   }
   location /admin/ {
@@ -132,11 +133,12 @@ server {
 - Attention, si vous avez choisi de configurer un certificat SSL pour le serveur Forest Admin, remplacez `http://localhost:3310` par `https://localhost:3310`
 - Pensez aussi dans ce cas à ce que la variable d'environnement APPLICATION_URL contienne bien le chemin (sans '/' final).
 
-> Attention, dans cette configuration la présence des caractères '/' après `/forest-admin/` et `http://localhost:3310/` est essentielle.
+> Attention, dans cette configuration la présence des caractères '/' après `/admin/` et `http://localhost:3310/` est essentielle.
 
-</details>
+## Autre configuration NGINX possible
+
 <details>
-<summary>Configuration indépendante du serveur UpSignOn PRO</summary>
+<summary>Cas où le serveur UpSignOn PRO Forest Admin est sur une machine différente du serveur UpSignOn PRO</summary>
 
 Utilisez cette configuration si vous avez installé votre serveur forest-admin sur une machine différente du serveur UpSignOn PRO.
 
@@ -176,9 +178,11 @@ server {
 
 ```
 
-Attention, si vous avez choisi de configurer un certificat SSL pour le serveur Forest Admin, remplacez `http://localhost:3310` par `https://localhost:3310`
+Attention, si vous avez choisi de configurer un certificat SSL pour le serveur Forest Admin, remplacez `http://localhost:3310/` par `https://localhost:3310/`
 
 </details>
+
+## Une fois Nginx configuré
 
 Redémarrer Nginx
 

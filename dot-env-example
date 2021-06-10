@@ -4,7 +4,7 @@ FOREST_AUTH_SECRET=2ab25b921c4bf35bb43b1f5b7aaa04e27a3142ada836fcd2323ea148ad953
 NODE_ENV=production
 
 APPLICATION_PORT=3310
-APPLICATION_URL=https://admin-upsignon.domaine.fr
+APPLICATION_URL=https://upsignonpro.votre-domaine.fr/admin
 
 DATABASE_URL=postgres://<dbUser>:<bdPwd>@localhost:5432/<bdName>
 DOCKER_DATABASE_URL=postgres://<dbUser>:<bdPwd>@host.docker.internal:5432/<bdName>
