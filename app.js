@@ -45,6 +45,14 @@ app.use(
     secret: process.env.FOREST_AUTH_SECRET,
     algorithms: ["HS256"],
     credentialsRequired: false,
+    isRevoked: (req, payload, done) => {
+      // Add this explicitly to prevent automatic scanners from detecting something but forest admin handles that well already
+      if (!payload.iat || Math.floor(Date.now() / 1000) - payload.iat > 24 * 3600) {
+        done(null, true);
+      } else {
+        done(null, false);
+      }
+    },
   })
 );
 
