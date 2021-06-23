@@ -21,8 +21,8 @@ router.get("/sharedDevices", (req, res, next) => {
     GROUP BY user_devices.device_unique_id
     HAVING COUNT(*) > 1
     ORDER BY date DESC
-    LIMIT ${limit}
-    OFFSET ${offset}
+    LIMIT $1
+    OFFSET $2
   `;
 
   const queryCount = `
@@ -33,7 +33,7 @@ router.get("/sharedDevices", (req, res, next) => {
   `;
 
   Promise.all([
-    models.connections.default.query(queryData, { type: "SELECT" }),
+    models.connections.default.query(queryData, { type: "SELECT", bind: [limit, offset ] }),
     models.connections.default.query(queryCount, { type: "SELECT" }),
   ])
     .then(async ([sharedDevicesList, sharedDevicesCount]) => {
@@ -49,11 +49,11 @@ router.get("/sharedDevices", (req, res, next) => {
 router.get("/sharedDevices/:recordId", (request, response, next) => {
   const queryData = `
     SELECT user_devices.device_unique_id AS device_unique_id, user_devices.device_unique_id AS id, MAX(user_devices.created_at) AS date, STRING_AGG(users.email,' ; ') AS emails FROM user_devices INNER JOIN users ON users.id=user_devices.user_id
-    WHERE user_devices.device_unique_id = '${request.params.recordId}'
+    WHERE user_devices.device_unique_id = '$1'
     GROUP BY user_devices.device_unique_id
   `;
   models.connections.default
-    .query(queryData, { type: "SELECT" })
+    .query(queryData, { type: "SELECT", bind: [request.params.recordId] })
     .then(async (sharedDeviceItem) => {
       const sharedDeviceItemSerializer = new RecordSerializer({ name: "sharedDevices" });
       const sharedDevice = await sharedDeviceItemSerializer.serialize(sharedDeviceItem);

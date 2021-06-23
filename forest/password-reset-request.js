@@ -22,8 +22,8 @@ collection("passwordResetRequest", {
       isReadOnly: true,
       get: async (resetRequest) => {
         const userEmail = await models.connections.default.query(
-          `SELECT email FROM users AS u INNER JOIN user_devices AS ud ON ud.user_id=u.id INNER JOIN password_reset_request AS prr ON prr.device_id=ud.id WHERE prr.id=${resetRequest.id}`,
-          { type: "SELECT" }
+          `SELECT email FROM users AS u INNER JOIN user_devices AS ud ON ud.user_id=u.id INNER JOIN password_reset_request AS prr ON prr.device_id=ud.id WHERE prr.id=$1`,
+          { type: "SELECT", bind:[resetRequest.id] }
         );
         return userEmail[0].email;
       },

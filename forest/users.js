@@ -43,8 +43,8 @@ collection("users", {
       description: "Number of accounts",
       isReadOnly: true,
       get: async (user) => {
-        const query = `SELECT nb_accounts from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
-        const res = await models.connections.default.query(query, { type: "SELECT" });
+        const query = `SELECT nb_accounts from data_stats where user_id = $1 ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT", bind:[user.id] });
         return res[0] ? res[0].nb_accounts : 0;
       },
     },
@@ -54,8 +54,8 @@ collection("users", {
       description: "Number of accounts with a strong password",
       isReadOnly: true,
       get: async (user) => {
-        const query = `SELECT nb_accounts_strong from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
-        const res = await models.connections.default.query(query, { type: "SELECT" });
+        const query = `SELECT nb_accounts_strong from data_stats where user_id = $1 ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT", bind:[user.id] });
         return res[0] ? res[0].nb_accounts_strong : 0;
       },
     },
@@ -65,8 +65,8 @@ collection("users", {
       description: "Number of accounts with a medium strength password",
       isReadOnly: true,
       get: async (user) => {
-        const query = `SELECT nb_accounts_medium from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
-        const res = await models.connections.default.query(query, { type: "SELECT" });
+        const query = `SELECT nb_accounts_medium from data_stats where user_id = $1 ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT", bind: [user.id] });
         return res[0] ? res[0].nb_accounts_medium : 0;
       },
     },
@@ -76,8 +76,8 @@ collection("users", {
       description: "Number of accounts with a weak password",
       isReadOnly: true,
       get: async (user) => {
-        const query = `SELECT nb_accounts_weak from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
-        const res = await models.connections.default.query(query, { type: "SELECT" });
+        const query = `SELECT nb_accounts_weak from data_stats where user_id = $1 ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT", bind: [user.id] });
         return res[0] ? res[0].nb_accounts_weak : 0;
       },
     },
@@ -87,8 +87,8 @@ collection("users", {
       description: "Number of codes",
       isReadOnly: true,
       get: async (user) => {
-        const query = `SELECT nb_codes from data_stats where user_id = ${user.id} ORDER BY date DESC LIMIT 1`;
-        const res = await models.connections.default.query(query, { type: "SELECT" });
+        const query = `SELECT nb_codes from data_stats where user_id = $1 ORDER BY date DESC LIMIT 1`;
+        const res = await models.connections.default.query(query, { type: "SELECT", bind: [user.id] });
         return res[0] ? res[0].nb_codes : 0;
       },
     },
